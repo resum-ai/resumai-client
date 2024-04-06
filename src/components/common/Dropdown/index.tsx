@@ -1,130 +1,132 @@
-import { Flex } from '@/components/Wrapper';
-import { theme } from '@/styles';
-import styled from '@emotion/styled';
-import { useModal } from '@/hooks/useModal';
-import { FieldValues, UseFormSetValue } from 'react-hook-form';
-import {
-  DropdownItemInterface,
-  setBackgroundColor,
-  setColor
-} from '@/utils/dropdown';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CaretDown, CaretUp } from '@/assets/Icon/Caret';
+import { SelectedIcon } from '@/assets/Icon/SelectedIcon';
+import { Flex, Text } from '@/components/Wrapper';
+import { useModal } from '@/hooks/useModal';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
 interface DropdownProps {
-  options: DropdownItemInterface[];
   label: string;
-  value: DropdownItemInterface;
+  value: string;
   setValue: UseFormSetValue<FieldValues>;
   placeholder?: string;
-  width?: number;
-  onClick?: () => void;
+  options: string[];
+  width: number;
 }
 
-/**
- * @param {{ label: string; value: string; color: string; background: string; }[]} options: dropdown option 목록
- * @param {string} label: dropdown 고유 label
- * @param { label: string; value: string; color: string; background: string; } value: 현재 선택된 값
- * @param { UseFormSetValue } setValue: dropdown 값 변경을 위한 함수
- * @param {string} placeholder: 선택되지 않은 상태의 텍스트
- * @param {number} width: Dropdown width
- */
+// TODO 검색해서 선택하기 기능
 export const Dropdown = ({
-  options,
   label,
   value,
   setValue,
-  placeholder = '선택',
-  width = 89,
-  onClick
+  placeholder = '항목을 선택하세요.',
+  options,
+  width
 }: DropdownProps) => {
   const { isOpen, modalRef, toggleModal } = useModal();
-  const color = setColor(value, isOpen);
-  const backgroundColor = setBackgroundColor(value, isOpen);
 
   return (
-    <Container
-      ref={modalRef}
-      onClick={() => {
-        // dropdown 열려 있는 상태에서 item 클릭 시 page초기화
-        if (isOpen && onClick) onClick();
-        toggleModal();
-      }}
+    <DropdownWrapper
       width={width}
-      isOpen={isOpen}>
-      <DropdownList background={backgroundColor} color={color}>
-        <DropdownButton
-          justify="space-between"
-          css={css`
-            width: ${width}px;
-            border-radius: 8px;
-          `}>
-          <DropdownLabel color={color}>
-            {value && value.value !== '' && !isOpen ? value.label : placeholder}
-          </DropdownLabel>
-          <ArrowContainer>
-            {isOpen ? <CaretUp /> : <CaretDown />}
-          </ArrowContainer>
-        </DropdownButton>
-
-        {isOpen && (
-          <>
-            {options.map((opt, idx) => (
-              <DropdownItem
-                key={idx}
-                onClick={() => setValue(label, opt)}
-                isSelected={value ? value.value === opt.value : false}>
-                {opt.label}
-              </DropdownItem>
-            ))}
-          </>
-        )}
-      </DropdownList>
-    </Container>
+      direction="column"
+      ref={modalRef}
+      onClick={toggleModal}>
+      <DropdownButton>
+        <Flex justify="space-between">
+          <Text typo="sub_text" color={value ? 'black' : 'gray4'}>
+            {value ? value : placeholder}
+          </Text>
+          {isOpen ? <CaretUp /> : <CaretDown />}
+        </Flex>
+      </DropdownButton>
+      {isOpen && (
+        <DropdwonSelect>
+          {options.map((option, index) => (
+            <DropdownElement
+              key={`${option}-${index}`}
+              isSelected={value === option || false}
+              onClick={() => setValue(label, option)}>
+              {option}
+              {value === option && <SelectedIcon />}
+            </DropdownElement>
+          ))}
+        </DropdwonSelect>
+      )}
+    </DropdownWrapper>
   );
 };
 
-const Container = styled.div<{ width: number; isOpen: boolean }>`
-  position: relative;
-  z-index: ${({ isOpen }) => (isOpen ? 10 : 5)};
-
+const DropdownWrapper = styled(Flex)<{ width: number }>`
   width: ${({ width }) => width}px;
-  height: 34px;
-`;
-const ArrowContainer = styled.div`
-  position: absolute;
-  right: 32px;
-`;
-const DropdownButton = styled(Flex)`
+
   position: relative;
 
-  box-sizing: border-box;
-  cursor: pointer;
+  ${({ theme }) => theme.typo.sub_text};
+  line-height: 125%;
 `;
-const DropdownLabel = styled.p<{ color: string }>`
-  ${theme.typo.sub_text}
-  color: ${({ color }) => color};
-`;
-const DropdownList = styled.ul<{
-  color: string;
-  background: string;
-}>`
+
+const DropdownButton = styled.div`
+  background-color: ${({ theme }) => theme.palette.white};
+  padding: 11.86px 8px 11.86px 16px;
   box-sizing: border-box;
+
+  border: 1px solid ${({ theme }) => theme.palette.gray2};
+  border-radius: 8px;
 
   width: 100%;
-  padding: 6px 16px;
-
-  background-color: ${({ background }) => background};
-  border: 1px solid ${({ color }) => color};
-  border-radius: 8px;
 `;
-const DropdownItem = styled.li<{ isSelected: boolean }>`
-  margin-top: 8px;
 
-  ${theme.typo.sub_text}
-  color: ${({ isSelected }) =>
-    isSelected ? theme.palette.black : theme.palette.gray5};
-  text-align: left;
+const DropdwonSelect = styled.ul`
+  color: ${({ theme }) => theme.palette.gray4};
+  background-color: ${({ theme }) => theme.palette.white};
+  border: 1px solid ${({ theme }) => theme.palette.gray2};
+  padding: 8px 4px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.25);
 
+  width: 100%;
+
+  position: absolute;
+  top: 56px;
+  z-index: 99;
+
+  list-style-type: none;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const DropdownElement = styled.li<{ isSelected: boolean }>`
   cursor: pointer;
+
+  list-style-type: none;
+  list-style: none;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 40px;
+  border-radius: 8px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+
+  ${({ isSelected, theme }) =>
+    isSelected
+      ? css`
+          background-color: ${theme.palette.blue_10};
+          border: 1px solid ${theme.palette.blue_70};
+          color: ${theme.palette.black};
+          font-weight: 700;
+        `
+      : css`
+          :hover {
+            background-color: ${theme.palette.gray1};
+          }
+        `}
 `;

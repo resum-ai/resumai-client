@@ -1,9 +1,13 @@
 import { Flex, Space, Text } from '@/components/Wrapper';
 import { Input, WriteButton } from '@/components/common';
+import { Dropdown } from '@/components/common/Dropdown';
 import { css } from '@emotion/react';
+import { useForm } from 'react-hook-form';
 
 // TODO 로그인 후 수정하기 분기 처리
 export const Setting = () => {
+  const { setValue, watch } = useForm();
+
   return (
     <Flex direction="column" align="center">
       <Space height={114} />
@@ -15,14 +19,14 @@ export const Setting = () => {
         direction="column"
         align="flex-start"
         css={css`
-          width: 304px;
+          width: 344px;
         `}>
         <Text typo="sub_text" color="gray5">
-          닉네임
+          &nbsp;&nbsp;&nbsp;&nbsp;닉네임
         </Text>
         <Space height={12} />
         <Input
-          width={304}
+          width={344}
           height={48}
           value={''}
           type="default"
@@ -30,15 +34,15 @@ export const Setting = () => {
         />
         <Space height={32} />
         <Text typo="sub_text" color="gray5">
-          직무
+          &nbsp;&nbsp;&nbsp;&nbsp;직무
         </Text>
         <Space height={12} />
-        <Input
-          width={304}
-          height={48}
-          value={''}
-          type="default"
-          placeholder="직무 선택"
+        <Dropdown
+          label="job"
+          value={watch('job')}
+          setValue={setValue}
+          options={['네이버', '카카오']}
+          width={344}
         />
       </Flex>
       <Space height={65} />
