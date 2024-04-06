@@ -3,10 +3,11 @@ import { LandingLogo } from '@/assets/Icon/LandingLogo';
 import { Flex, Space, Text } from '@/components/Wrapper';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { Link } from 'react-router-dom';
 
 export const Join = () => {
   return (
-    <Flex
+    <Wrapper
       direction="column"
       justify="center"
       align="center"
@@ -18,21 +19,27 @@ export const Join = () => {
       </Text>
       <Space height={80} />
       <Wrapper>
-        <LandingLogo />
+        <LandingLogo className="landing-logo" />
       </Wrapper>
       <Space height={64} />
-      <KakaoButton>
-        <Kakao />
-        카카오 로그인/회원가입
-      </KakaoButton>
-    </Flex>
+      <Link to={import.meta.env.VITE_REDIRECT_URI}>
+        <KakaoButton>
+          <Kakao />
+          카카오 로그인/회원가입
+        </KakaoButton>
+      </Link>
+    </Wrapper>
   );
 };
 
 const Wrapper = styled(Flex)`
-  svg {
+  .landing-logo {
     width: 194px;
     height: 219px;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 

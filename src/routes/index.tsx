@@ -1,6 +1,7 @@
 import App from '@/App';
 import { LoginLayout } from '@/components/layout';
 import { Join } from '@/pages/join';
+import { KakaoCallback } from '@/pages/join/callback';
 import { Setting } from '@/pages/join/setting';
 
 import {
@@ -27,6 +28,11 @@ const routeChildren: RouteChildren[] = [
   {
     path: '/join/setting',
     element: <Setting />,
+    auth: false
+  },
+  {
+    path: '/accounts/kakao/callback',
+    element: <KakaoCallback />,
     auth: false
   }
 ];
