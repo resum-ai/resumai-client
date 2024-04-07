@@ -1,12 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { UserInfoRequest } from '@/apis/user';
 import { Flex, Space, Text } from '@/components/Wrapper';
 import { Input, WriteButton } from '@/components/common';
 import { Dropdown } from '@/components/common/Dropdown';
+import { JOB_POSITIONS } from '@/constants/position';
+import { useAuth } from '@/hooks/useAuth';
 import { css } from '@emotion/react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 // TODO 로그인 후 수정하기 분기 처리
 export const Setting = () => {
-  const { setValue, watch } = useForm();
+  const { setValue, watch, register } = useForm();
+  const { userInfoUpdateMutation } = useAuth();
+
+  useEffect(() => {
+    console.log(watch('username'));
+    console.log(watch('position'));
+    console.log(watch());
+    userInfoUpdateMutation.mutate(watch() as UserInfoRequest);
+  }, [watch('position')]);
 
   return (
     <Flex direction="column" align="center">
@@ -31,6 +44,7 @@ export const Setting = () => {
           value={''}
           type="default"
           placeholder="닉네임 입력하기"
+          {...register('username')}
         />
         <Space height={32} />
         <Text typo="sub_text" color="gray5">
@@ -38,10 +52,10 @@ export const Setting = () => {
         </Text>
         <Space height={12} />
         <Dropdown
-          label="job"
-          value={watch('job')}
+          label="position"
+          value={watch('position')}
           setValue={setValue}
-          options={['네이버', '카카오']}
+          options={JOB_POSITIONS}
           width={344}
         />
       </Flex>

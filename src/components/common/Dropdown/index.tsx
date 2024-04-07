@@ -35,7 +35,7 @@ export const Dropdown = ({
       onClick={toggleModal}>
       <DropdownButton>
         <Flex justify="space-between">
-          <Text typo="sub_text" color={value ? 'black' : 'gray4'}>
+          <Text typo="sub_text" color={'gray4'}>
             {value ? value : placeholder}
           </Text>
           {isOpen ? <CaretUp /> : <CaretDown />}
@@ -88,6 +88,8 @@ const DropdwonSelect = styled.ul`
   box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.25);
 
   width: 100%;
+  height: 284px;
+  overflow: scroll;
 
   position: absolute;
   top: 56px;

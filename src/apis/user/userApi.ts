@@ -1,32 +1,40 @@
-import { instance } from '../axois';
+import { instance, privateInstance } from '../axois';
 
 export interface KakaoLoginResponse {
-  accessToken: string;
-  code: string;
-}
-
-export interface KakaoLoginFinishResponse {
   access_token: string;
   code: string;
   isUser?: boolean;
 }
 
+export interface UserInfoRequest {
+  username: string;
+  position: string;
+  profile_image?: string;
+}
+
+export interface UserInfoResponse {
+  id: number;
+  username: string;
+  position: string;
+  profile_image: string;
+}
+
 // TODO userApi 세팅
 export const userApi = {
-  //카카오 로그인
-  GET_KAKAO_LOGIN: async (code: string): Promise<KakaoLoginResponse> => {
-    console.log('fetch');
-    const response = await instance.get(`/accounts/kakao/login/?code=${code}`);
+  // 카카오 로그인
+  POST_KAKAO_LOGIN: async (code: string): Promise<KakaoLoginResponse> => {
+    const response = await instance.post('/accounts/kakao/login/', {
+      code: code
+    });
     return response.data;
   },
-  // 카카오 로그인 끝내기
-  POST_KAKAO_LOGIN_FINISH: async (
-    payload: KakaoLoginResponse
-  ): Promise<KakaoLoginFinishResponse> => {
-    const response = await instance.post(
-      '/accounts/kakao/login/finish',
-      payload
-    );
+  // 유저 정보 업데이트
+  PUT_USER_INFO: async (
+    payload: UserInfoRequest
+  ): Promise<UserInfoResponse> => {
+    const response = await privateInstance.put('/accounts/update/', {
+      ...payload
+    });
     return response.data;
   }
   // 유저 조회
