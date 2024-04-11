@@ -35,6 +35,7 @@ const StyledButton = styled.button<{
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 
   border-radius: 8px;
 

@@ -16,8 +16,9 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 
-  border-radius: 100px;
+  border-radius: 8px;
 
   padding: 0px 24px;
   height: 50px;
