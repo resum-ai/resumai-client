@@ -109,7 +109,7 @@ export const Input = forwardRef<
 const Container = styled(Flex)<{ width?: number }>`
   flex-direction: column;
   align-items: flex-start;
-  width: ${({ width }) => (width ? width : 100)}px;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
 `;
 
 const StyledHelperTextBox = styled.div`
@@ -190,7 +190,7 @@ const StyledInput = styled.input<{
   height?: number;
   width?: number;
 }>`
-  width: ${({ width }) => (width ? width : 100)}px;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? height : 50)}px;
   padding: 14px 16px;
 
@@ -222,7 +222,7 @@ const StyledTextArea = styled.textarea<{
   width?: number;
   isError?: boolean;
 }>`
-  width: ${({ width }) => (width ? width : 100)}px;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => (height ? height : 92)}px;
   padding: 25px;
 

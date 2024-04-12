@@ -17,8 +17,6 @@ export const useAuth = () => {
   const kakaoLoginMutation = useMutation({
     mutationFn: (code: string) => userApi.POST_KAKAO_LOGIN(code),
     onSuccess: (data: KakaoLoginResponse) => {
-      console.log('data', data);
-
       // TODO 라우팅 경로 상수로 빼기
       navigate('/join/setting');
       setCookie('access_token', data.access_token, 7);
@@ -32,10 +30,9 @@ export const useAuth = () => {
   const userInfoUpdateMutation = useMutation({
     mutationFn: (userInfo: UserInfoRequest) => userApi.PUT_USER_INFO(userInfo),
     onSuccess: (data: UserInfoResponse) => {
-      console.log(data);
       alert('회원가입이 완료됐어요!');
       // TODO 라우팅 경로 상수로 빼기
-      navigate('/');
+      navigate('/create/draft');
     },
     onError: (error: unknown) => {
       // alert(error);

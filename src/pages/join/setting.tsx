@@ -15,9 +15,6 @@ export const Setting = () => {
   const { userInfoUpdateMutation } = useAuth();
 
   useEffect(() => {
-    console.log(watch('username'));
-    console.log(watch('position'));
-    console.log(watch());
     userInfoUpdateMutation.mutate(watch() as UserInfoRequest);
   }, [watch('position')]);
 

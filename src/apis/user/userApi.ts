@@ -37,22 +37,4 @@ export const userApi = {
     });
     return response.data;
   }
-  // 유저 조회
-  // GET_MEMBERS: (token: string) =>
-  //   api.get('/api/members', {
-  //     headers: {
-  //       Authorization: token
-  //     }
-  //   }),
-  // 닉네임 추가
-  // PATCH_NICKNAME: (nickname: string, token: string) =>
-  //   api.patch(
-  //     '/api/members/nickname',
-  //     { nickname },
-  //     {
-  //       headers: {
-  //         Authorization: token
-  //       }
-  //     }
-  //   )
 };

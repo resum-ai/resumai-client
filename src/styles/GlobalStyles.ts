@@ -6,12 +6,16 @@ export const GlobalStyle = css`
 
   html {
     font-size: 62.5%;
+    height: 100%;
+    min-height: 100vh;
   }
 
   body {
     position: relative;
     height: 100%;
     min-height: 100vh;
+    display: flex;
+
     @supports (-webkit-appearance: none) and (stroke-color: transparent) {
       min-height: -webkit-fill-available;
       scroll: smooth;
@@ -49,5 +53,8 @@ export const GlobalStyle = css`
   textarea {
     border: none;
     margin: 0;
+  }
+  div {
+    box-sizing: border-box;
   }
 `;
