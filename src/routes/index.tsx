@@ -1,8 +1,9 @@
 import App from '@/App';
-import { LoginLayout } from '@/components/layout';
+import { Layout, LoginLayout, ResumeLayout } from '@/components/layout';
+import { Draft } from '@/pages/create/Draft';
 import { Join } from '@/pages/join';
-import { KakaoCallback } from '@/pages/join/callback';
-import { Setting } from '@/pages/join/setting';
+import { KakaoCallback } from '@/pages/join/Callback';
+import { Setting } from '@/pages/join/Setting';
 
 import {
   createBrowserRouter,
@@ -17,23 +18,48 @@ type RouteChildren = {
 const routeChildren: RouteChildren[] = [
   {
     path: '/',
-    element: <App />,
+    element: (
+      <Layout>
+        <App />
+      </Layout>
+    ),
     auth: false
   },
   {
     path: '/join',
-    element: <Join />,
-    auth: false
-  },
-  {
-    path: '/join/setting',
-    element: <Setting />,
+    element: (
+      <Layout>
+        <Join />
+      </Layout>
+    ),
     auth: false
   },
   {
     path: '/accounts/kakao/callback',
-    element: <KakaoCallback />,
+    element: (
+      <Layout>
+        <KakaoCallback />
+      </Layout>
+    ),
     auth: false
+  },
+  {
+    path: '/join/setting',
+    element: (
+      <Layout>
+        <Setting />
+      </Layout>
+    ),
+    auth: true
+  },
+  {
+    path: '/create/draft',
+    element: (
+      <ResumeLayout>
+        <Draft />
+      </ResumeLayout>
+    ),
+    auth: true
   }
 ];
 
