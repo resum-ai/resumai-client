@@ -30,12 +30,7 @@ export const Section2 = () => {
 };
 
 const Wrapper = styled.div`
-  height: 100vh;
   position: relative;
-
-  svg {
-    height: 100vh;
-  }
 
   .section2-text {
     position: absolute;
