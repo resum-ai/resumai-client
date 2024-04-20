@@ -30,6 +30,7 @@ export const Space = styled.div<{
   height: ${({ height }) => (height ? `${height}px` : '')};
   width: ${({ width }) => (width ? `${width}px` : '')};
   ${({ css }) => css}
+  flex-shrink: 0;
 `;
 
 export const Text = styled.p<{
