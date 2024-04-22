@@ -6,6 +6,7 @@ import { GlobalStyle } from './styles/GlobalStyles';
 import { Global, ThemeProvider } from '@emotion/react';
 import { theme } from './styles/theme';
 import { Routers } from '@/routes/index.tsx';
+import { Modal } from './components/common/Portal/Modal';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Global styles={GlobalStyle} />
       <ThemeProvider theme={theme}>
         <Routers />
+        <Modal />
       </ThemeProvider>
     </RecoilRoot>
     <ReactQueryDevtools />

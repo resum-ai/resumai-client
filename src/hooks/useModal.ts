@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useModalState } from '@/store/modalState';
-import { ReactNode, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useModal = () => {
   const { isOpen, setIsOpen, content, setContent } = useModalState(
@@ -29,7 +30,7 @@ export const useModal = () => {
     });
   };
 
-  const openModal = ({ content }: { content: ReactNode }) => {
+  const openModal = ({ content }: { content: JSX.Element }) => {
     document.body.style.overflowY = 'hidden';
     setIsOpen(true);
     setContent(content);
