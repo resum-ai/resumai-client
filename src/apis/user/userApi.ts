@@ -23,7 +23,7 @@ export interface UserInfoResponse {
 export const userApi = {
   // 카카오 로그인
   POST_KAKAO_LOGIN: async (code: string): Promise<KakaoLoginResponse> => {
-    const response = await instance.post('/accounts/kakao/login/', {
+    const response = await instance.post('/accounts/kakao/login', {
       code: code
     });
     return response.data;
@@ -32,7 +32,7 @@ export const userApi = {
   PUT_USER_INFO: async (
     payload: UserInfoRequest
   ): Promise<UserInfoResponse> => {
-    const response = await privateInstance.put('/accounts/update/', {
+    const response = await privateInstance.put('/accounts/update', {
       ...payload
     });
     return response.data;
