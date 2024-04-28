@@ -18,8 +18,8 @@ export const useAuth = () => {
     mutationFn: (code: string) => userApi.POST_KAKAO_LOGIN(code),
     onSuccess: (data: KakaoLoginResponse) => {
       // TODO 라우팅 경로 상수로 빼기
-      navigate('/join/setting');
       setCookie('access_token', data.access_token, 7);
+      navigate('/join/setting');
     },
     onError: (error: unknown) => {
       // alert(error);

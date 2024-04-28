@@ -3,12 +3,9 @@ import { useState } from 'react';
 export const useOpen = () => {
   const [open, setOpen] = useState(false);
 
-  const onOpen = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
+  const toggleOpen = () => {
+    setOpen(!open);
   };
 
-  return { open, onOpen, onClose };
+  return { open, toggleOpen };
 };
