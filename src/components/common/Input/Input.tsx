@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import { theme } from '@/styles';
 import { Flex } from '@/components/Wrapper';
 
-interface InputProps
+export interface InputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   value: string;
   errorText?: string;
@@ -46,6 +46,7 @@ export const Input = forwardRef<
       height = 80,
       multiline = false,
       maxLength,
+      rightElement,
       ...props
     },
     ref
@@ -95,6 +96,7 @@ export const Input = forwardRef<
                   {maxLength}
                 </p>
               )}
+              {rightElement}
             </InputContainer>
           )}
         </Flex>

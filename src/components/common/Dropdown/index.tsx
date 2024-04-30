@@ -2,7 +2,7 @@
 import { CaretDown, CaretUp } from '@/assets/Icon/Caret';
 import { SelectedIcon } from '@/assets/Icon/SelectedIcon';
 import { Flex, Text } from '@/components/Wrapper';
-import { useModal } from '@/hooks/useModal';
+import { useOpen } from '@/hooks/useOpen';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { FieldValues, UseFormSetValue } from 'react-hook-form';
@@ -25,23 +25,19 @@ export const Dropdown = ({
   options,
   width
 }: DropdownProps) => {
-  const { isOpen, modalRef, toggleModal } = useModal();
+  const { open, toggleOpen } = useOpen();
 
   return (
-    <DropdownWrapper
-      width={width}
-      direction="column"
-      ref={modalRef}
-      onClick={toggleModal}>
+    <DropdownWrapper width={width} direction="column" onClick={toggleOpen}>
       <DropdownButton>
         <Flex justify="space-between">
           <Text typo="sub_text" color={'gray4'}>
             {value ? value : placeholder}
           </Text>
-          {isOpen ? <CaretUp /> : <CaretDown />}
+          {open ? <CaretUp /> : <CaretDown />}
         </Flex>
       </DropdownButton>
-      {isOpen && (
+      {open && (
         <DropdwonSelect>
           {options.map((option, index) => (
             <DropdownElement
