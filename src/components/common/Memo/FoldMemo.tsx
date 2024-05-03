@@ -11,7 +11,7 @@ interface FoldMemoProps {
 }
 
 export const FoldMemo = ({ title, content, createdAt }: FoldMemoProps) => {
-  const [isFold, setIsFold] = useState(false);
+  const [isFold, setIsFold] = useState(true);
 
   return (
     <MemoWrapper isFold={isFold}>
