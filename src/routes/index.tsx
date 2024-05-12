@@ -8,6 +8,7 @@ import { Join } from '@/pages/join';
 import { KakaoCallback } from '@/pages/join/Callback';
 import { Setting } from '@/pages/join/Setting';
 import { Modify } from '@/pages/modify/Modify';
+import { MyPage } from '@/pages/mypage';
 
 import {
   createBrowserRouter,
@@ -52,6 +53,15 @@ const routeChildren: RouteChildren[] = [
     element: (
       <Layout>
         <Setting />
+      </Layout>
+    ),
+    auth: true
+  },
+  {
+    path: '/mypage',
+    element: (
+      <Layout>
+        <MyPage />
       </Layout>
     ),
     auth: true
