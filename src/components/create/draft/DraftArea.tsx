@@ -62,6 +62,7 @@ export const DraftArea = forwardRef<HTMLDivElement, DraftAreaProps>(
           title={watch('title')}
           onSubmit={onSubmit}
           submitButtonText="자기소개서 생성"
+          disabled={false}
         />
         <Line />
         <Flex

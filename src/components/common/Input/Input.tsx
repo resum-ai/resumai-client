@@ -59,7 +59,6 @@ export const Input = forwardRef<
               direction="column"
               align="flex-end"
               gap={8}
-              value={value}
               isError={isError}>
               <StyledTextArea
                 {...props}
@@ -68,8 +67,9 @@ export const Input = forwardRef<
                 spellCheck={false}
                 isError={isError}
                 width={width}
-                height={height}
-              />
+                height={height}>
+                {value}
+              </StyledTextArea>
               {maxLength && (
                 <p>
                   <span>{value === undefined ? '0' : value?.length}</span>

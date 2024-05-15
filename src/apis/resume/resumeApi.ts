@@ -35,9 +35,21 @@ export interface ResumeGenerateResponse {
 
 export interface ChatHistoryResponse {
   count: number;
-  next: null | boolean;
-  previouse: null | boolean;
-  results: { query: string; response: string; created_at: string }[];
+  results: { created_at: Date; content: string; is_user: boolean }[];
+}
+
+export interface GetResumeResponse {
+  id: string;
+  title: string;
+  poistion: string;
+  company: string;
+  question: string;
+  content: string;
+  due_date: string;
+  created_at: Date;
+  updated_at: Date;
+  is_finished: boolean;
+  is_liked: boolean;
 }
 
 export const resumeApi = {
@@ -65,6 +77,25 @@ export const resumeApi = {
       params: { id: id, page: 1 }
     });
 
+    return response.data;
+  },
+  // 채팅 대화 전송
+  POST_RESUME_CHAT: async ({
+    id,
+    query
+  }: {
+    id: number;
+    query: string;
+  }): Promise<{ answer: string }> => {
+    const response = await privateInstance.post(`/resume/${id}/chat`, {
+      query: query
+    });
+
+    return response.data;
+  },
+  // 자기소개서 하나 가져오기
+  GET_RESUME: async (id: string | undefined): Promise<GetResumeResponse> => {
+    const response = await privateInstance.get(`/resume/${id}`);
     return response.data;
   }
 };

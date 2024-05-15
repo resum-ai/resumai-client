@@ -10,12 +10,14 @@ interface ResumeTitleProps {
   title: string;
   onSubmit: () => void;
   submitButtonText: string;
+  disabled: boolean;
 }
 
 export const ResumeTitle = ({
   title,
   onSubmit,
-  submitButtonText
+  submitButtonText,
+  disabled
 }: ResumeTitleProps) => {
   const { open, toggleOpen } = useOpen();
   const { handleSubmit } = useFormContext();
@@ -46,7 +48,7 @@ export const ResumeTitle = ({
             수정
           </TitleModifyButton>
         </Flex>
-        <MainButton onClick={handleSubmit(onSubmit)}>
+        <MainButton disabled={disabled} onClick={handleSubmit(onSubmit)}>
           {submitButtonText}
         </MainButton>
       </Flex>

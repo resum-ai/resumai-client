@@ -1,4 +1,5 @@
 import { theme } from '@/styles';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ButtonHTMLAttributes } from 'react';
 
@@ -8,11 +9,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
  * @default {HTMLButtonElement}
  *
  */
-export const MainButton = ({ children, ...props }: ButtonProps) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+export const MainButton = ({ children, disabled, ...props }: ButtonProps) => {
+  return (
+    <StyledButton disabled={disabled} {...props}>
+      {children}
+    </StyledButton>
+  );
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ disabled?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,10 +32,14 @@ const StyledButton = styled.button`
   ${theme.typo.sub_title}
   color: ${theme.palette.white}
 
+  
+
   ${({ disabled }) =>
     disabled &&
-    `
+    css`
+      color: pink;
       cursor: not-allowed; /* 커서 변경 */
-      background-color: ${theme.palette.gray2}
+      background: none;
+      background-color: ${theme.palette.gray2};
     `}
 `;

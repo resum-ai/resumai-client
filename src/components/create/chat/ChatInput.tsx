@@ -3,22 +3,16 @@ import { Flex } from '@/components/Wrapper';
 import { Input } from '@/components/common';
 import styled from '@emotion/styled';
 import { useFormContext } from 'react-hook-form';
-import { ChatBalloonProps } from './ChatBalloon';
 import { theme } from '@/styles';
 
 // TODO trim 이용 공백 제거
 interface ChatInputProps {
-  chats: ChatBalloonProps[];
-  setChats: React.Dispatch<React.SetStateAction<ChatBalloonProps[]>>;
+  handleSendClick: () => void;
 }
 
-export const ChatInput = ({ chats, setChats }: ChatInputProps) => {
-  const { register, watch, setValue } = useFormContext();
+export const ChatInput = ({ handleSendClick }: ChatInputProps) => {
+  const { register, watch } = useFormContext();
 
-  const handleSendClick = () => {
-    setChats([...chats, { isUser: true, text: watch('chat') }]);
-    setValue('chat', undefined);
-  };
   return (
     <Wrapper>
       <Input

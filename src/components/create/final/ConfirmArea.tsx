@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import { ConfirmTitle } from './ConfirmTitle';
 import { css } from '@emotion/react';
 import { ConfirmQuestion } from './ConfirmQuestion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const ConfirmArea = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   return (
     <Wrapper direction="column" align="flex-start" justify="flex-start">
@@ -14,7 +15,7 @@ export const ConfirmArea = () => {
           padding: 44px 124px 42px 54px;
         `}>
         <ConfirmTitle title="세아제강 어쩌고" leftDay={6} />
-        <ModifyButton onClick={() => navigate('/modify/1')}>
+        <ModifyButton onClick={() => navigate(`/modify/${id}`)}>
           수정하기
         </ModifyButton>
       </Flex>
