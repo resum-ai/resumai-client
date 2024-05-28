@@ -7,22 +7,28 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { resumeApi } from '@/apis/resume';
 import { useQuery } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
+import { useEffect } from 'react';
 
 export const ConfirmArea = () => {
   const { id } = useParams();
-  const { watch } = useFormContext();
+  const { setValue } = useFormContext();
   const navigate = useNavigate();
   const { data } = useQuery({
     queryKey: ['final'],
     queryFn: () => resumeApi.GET_RESUME(id)
   });
+
+  useEffect(() => {
+    setValue('content', data?.content ?? '');
+  }, [data]);
+
   return (
     <Wrapper direction="column" align="flex-start" justify="flex-start">
       <Flex
         css={css`
           padding: 44px 124px 42px 54px;
         `}>
-        <ConfirmTitle title={watch('title')} leftDay={6} />
+        <ConfirmTitle title={data?.title ?? ''} leftDay={6} />
         <ModifyButton onClick={() => navigate(`/modify/${id}`)}>
           수정하기
         </ModifyButton>
@@ -36,7 +42,7 @@ export const ConfirmArea = () => {
           padding: 0px 124px 42px 54px;
         `}>
         <ConfirmQuestion
-          title={'1. ' + data?.question ?? ''}
+          title={data?.question ?? ''}
           content={data?.content ?? ''}
         />
       </Flex>

@@ -69,6 +69,7 @@ const MemoWrapper = styled.div<{
 }>`
   border-radius: 12px;
   background-color: ${({ theme }) => theme.palette.white};
+  cursor: pointer;
 
   ${({ type }) =>
     type === 'sm' &&

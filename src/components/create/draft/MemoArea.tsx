@@ -1,31 +1,34 @@
 import styled from '@emotion/styled';
 import { FoldMemo } from '../../common/Memo/FoldMemo';
 import { Flex, Text } from '../../Wrapper';
-import { Plus } from '@/assets/Icon/Plus';
+// import { Plus } from '@/assets/Icon/Plus';
+import { useQuery } from '@tanstack/react-query';
+import { memoApi } from '@/apis/resume';
 
 // TODO 메모 api 연결
 export const MemoArea = () => {
+  const { data } = useQuery({
+    queryKey: ['memoArea', 'memo'],
+    queryFn: memoApi.GET_MEMO_All
+  });
+
   return (
     <Wrapper>
       <Title justify="space-between">
         <Text typo="sub_title" color="black">
           내 메모
         </Text>
-        <Plus />
+        {/* <Plus /> */}
       </Title>
       <Content direction="column" justify="flex-start" gap={8}>
-        <FoldMemo
-          title="제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케"
-          content="아니 내가 그때 이거 활동하면서 진짜 좋았었다? 근데 왜 좋았는지 기억이 안나는거야 그래서 프리폴리오를 써야하나봐 거기에 감상 좀 제대로제때 적을 걸 그랬엉
-아니 내가 그때 이거 활동하면서 진짜 좋았었다? 근데 왜 좋았는지 기억이 안나는거야 그래서 프리폴리오를 써야하나봐 거기에 감상 좀 제대로제때 적을 걸 그랬엉"
-          createdAt={new Date()}
-        />
-        <FoldMemo
-          title="제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케 제목이 한 줄이라면 요러케"
-          content="아니 내가 그때 이거 활동하면서 진짜 좋았었다? 근데 왜 좋았는지 기억이 안나는거야 그래서 프리폴리오를 써야하나봐 거기에 감상 좀 제대로제때 적을 걸 그랬엉
-아니 내가 그때 이거 활동하면서 진짜 좋았었다? 근데 왜 좋았는지 기억이 안나는거야 그래서 프리폴리오를 써야하나봐 거기에 감상 좀 제대로제때 적을 걸 그랬엉"
-          createdAt={new Date()}
-        />
+        {data?.results.map((el, index) => (
+          <FoldMemo
+            key={index + 'memoArea'}
+            title={el.title}
+            content={el.content}
+            createdAt={new Date(el.updated_at)}
+          />
+        ))}
       </Content>
     </Wrapper>
   );

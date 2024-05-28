@@ -1,7 +1,11 @@
 /* eslint-disable no-sparse-arrays */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { resumeApi } from '@/apis/resume';
+import {
+  GetResumeResponse,
+  UpdateResumeRequest,
+  resumeApi
+} from '@/apis/resume';
 import { Flex } from '@/components/Wrapper';
 import { ResumeTitle } from '@/components/create/ResumeTitle';
 import { ChatArea } from '@/components/create/chat/ChatArea';
@@ -11,9 +15,10 @@ import styled from '@emotion/styled';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const Chat = () => {
+  const navigate = useNavigate();
   const { watch, setValue } = useFormContext();
   const { id } = useParams();
   const { data } = useQuery({
@@ -60,7 +65,28 @@ export const Chat = () => {
 
   // TODO onSubmit 부분 작성하고 뮤테이션 걸기
 
-  const onSubmit = () => {};
+  const putResumeMutation = useMutation({
+    mutationFn: (payload: UpdateResumeRequest) =>
+      resumeApi.PUT_RESUME_UPDATE(payload),
+    onSuccess: (data: GetResumeResponse) => {
+      console.log('success', data);
+      navigate(`/create/final/${data.id}`);
+    }
+  });
+
+  const onSubmit = () => {
+    const payload: UpdateResumeRequest = {
+      id: id ?? '',
+      title: watch('title') ?? '지원 동기',
+      position: watch('position'),
+      content: watch('checkedChat').content,
+      due_date: watch('dueDate'),
+      is_finished: false,
+      is_liked: false
+    };
+
+    putResumeMutation.mutate(payload);
+  };
 
   return (
     <Wrapper justify="flex-start" align="flex-start" direction="column">

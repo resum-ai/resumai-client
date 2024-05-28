@@ -41,7 +41,7 @@ export interface ChatHistoryResponse {
 export interface GetResumeResponse {
   id: string;
   title: string;
-  poistion: string;
+  position: string;
   company: string;
   question: string;
   content: string;
@@ -57,6 +57,16 @@ export interface GetAllResumeResponse {
   next: string;
   previous: string | null;
   results: GetResumeResponse[];
+}
+
+export interface UpdateResumeRequest {
+  id: string;
+  title: string;
+  position: string;
+  content: string;
+  due_date: string;
+  is_finished: boolean;
+  is_liked: boolean;
 }
 
 export const resumeApi = {
@@ -108,6 +118,16 @@ export const resumeApi = {
   // 자기소개서 전체 가져오기
   GET_RESUME_All: async (): Promise<GetAllResumeResponse> => {
     const response = await privateInstance.get('/resume/all');
+    return response.data;
+  },
+  // 자기소개서 업데이트
+  PUT_RESUME_UPDATE: async (
+    payload: UpdateResumeRequest
+  ): Promise<GetResumeResponse> => {
+    const { id, ...data } = payload;
+    const response = await privateInstance.put(`/resume/update/${id}`, {
+      data
+    });
     return response.data;
   }
 };

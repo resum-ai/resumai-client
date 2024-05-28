@@ -11,8 +11,10 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const MyPage = () => {
+  const navigate = useNavigate();
   const { openModal } = useModal();
   const { data: resumeData } = useQuery({
     queryKey: ['myPage', 'resume'],
@@ -60,6 +62,7 @@ export const MyPage = () => {
           {tab
             ? resumeData?.results.map((el, index) => (
                 <Resume
+                  onClick={() => navigate(`/create/final/${el.id}`)}
                   key={index}
                   title={el.title}
                   due_date={el.due_date}

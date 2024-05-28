@@ -57,6 +57,8 @@ export const Draft = () => {
     } else {
       closeModal();
     }
+
+    setValue('title', watch('question'));
   }, [
     step,
     watch('company'),

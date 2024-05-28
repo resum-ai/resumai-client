@@ -10,6 +10,7 @@ interface ResumeProps {
   content: string;
   is_finished: boolean;
   is_liked: boolean;
+  onClick: () => void;
 }
 
 export const Resume = ({
@@ -18,10 +19,15 @@ export const Resume = ({
   company,
   content,
   is_finished,
-  is_liked
+  is_liked,
+  onClick
 }: ResumeProps) => {
   return (
-    <Wrapper direction="column" justify="space-between" isLiked={is_liked}>
+    <Wrapper
+      onClick={onClick}
+      direction="column"
+      justify="space-between"
+      isLiked={is_liked}>
       <Info direction="column" align="flex-start" justify="flex-start" gap={12}>
         <Flex gap={12} align="flex-start" justify="flex-start">
           <Text typo="title" color="blue_black">
