@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Landing2 = () => {
   return (
     <svg

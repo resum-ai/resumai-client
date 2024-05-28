@@ -10,7 +10,7 @@ export const Section3 = () => {
 
   return (
     <Wrapper gap={240} justify="center">
-      <LandingLogo />
+      <LandingLogo className={''} />
       <Flex
         gap={28}
         direction="column"

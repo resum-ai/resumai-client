@@ -16,9 +16,7 @@ interface ResumeProps {
 export const Resume = ({
   title,
   due_date,
-  company,
   content,
-  is_finished,
   is_liked,
   onClick
 }: ResumeProps) => {

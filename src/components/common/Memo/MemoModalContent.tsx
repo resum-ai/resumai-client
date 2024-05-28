@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Flex, Space, Text } from '@/components/Wrapper';
-import TextField from '@/components/create/draft/TextField';
 import { Input } from '../Input/Input';
-import { MainButton } from '../Button/MainButton';
 import { Ellipsis } from '@/assets/Icon/Ellipsis';
 
 interface MemoModalContent {
@@ -16,9 +14,9 @@ interface MemoModalContent {
 export const MemoModalContent = ({
   title,
   date,
-  content,
-  onModify,
-  onDelete
+  content
+  // onModify,
+  // onDelete
 }: MemoModalContent) => {
   return (
     <Flex direction="column" gap={36} justify="flex-start">

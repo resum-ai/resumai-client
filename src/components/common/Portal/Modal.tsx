@@ -5,7 +5,7 @@ import { useModal } from '@/hooks/useModal';
 import { Flex } from '@/components/Wrapper';
 
 export const Modal = () => {
-  const { isOpen, modalRef, openModal, closeModal, content } = useModal();
+  const { isOpen, modalRef, content } = useModal();
 
   return (
     <ModalPortal>

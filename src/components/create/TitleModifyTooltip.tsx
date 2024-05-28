@@ -14,7 +14,7 @@ export const TitleModifyTooltip = ({
   open,
   toggleOpen
 }: TitleModifyTooltip) => {
-  const { register, watch, setValue } = useFormContext();
+  const { register, watch } = useFormContext();
 
   const handleButtonClick = () => {
     toggleOpen();
