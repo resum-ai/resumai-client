@@ -3,6 +3,7 @@ import { FoldMemo } from '../../common/Memo/FoldMemo';
 import { Flex, Text } from '../../Wrapper';
 import { Plus } from '@/assets/Icon/Plus';
 
+// TODO 메모 api 연결
 export const MemoArea = () => {
   return (
     <Wrapper>
