@@ -14,6 +14,7 @@ export const ModifyArea = () => {
     queryFn: () => resumeApi.GET_RESUME(id)
   });
 
+  // TODO 제목 data.title 말고 수정할 수 있도록
   return (
     <Wrapper direction="column" align="flex-start" justify="flex-start">
       {data && (
@@ -24,7 +25,6 @@ export const ModifyArea = () => {
             submitButtonText="저장하기"
             disabled={false}
           />
-          {/* <TextField title={''} value={''} label={'hi'} height={728} /> */}
           <Flex
             css={css`
               padding: 16px;

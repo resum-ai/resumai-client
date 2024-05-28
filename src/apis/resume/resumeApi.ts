@@ -52,6 +52,13 @@ export interface GetResumeResponse {
   is_liked: boolean;
 }
 
+export interface GetAllResumeResponse {
+  count: number;
+  next: string;
+  previous: string | null;
+  results: GetResumeResponse[];
+}
+
 export const resumeApi = {
   // 가이드라인 생성
   GET_RESUME_GUIDELINES: async (
@@ -96,6 +103,11 @@ export const resumeApi = {
   // 자기소개서 하나 가져오기
   GET_RESUME: async (id: string | undefined): Promise<GetResumeResponse> => {
     const response = await privateInstance.get(`/resume/${id}`);
+    return response.data;
+  },
+  // 자기소개서 전체 가져오기
+  GET_RESUME_All: async (): Promise<GetAllResumeResponse> => {
+    const response = await privateInstance.get('/resume/all');
     return response.data;
   }
 };

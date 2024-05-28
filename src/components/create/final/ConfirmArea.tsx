@@ -4,17 +4,25 @@ import { ConfirmTitle } from './ConfirmTitle';
 import { css } from '@emotion/react';
 import { ConfirmQuestion } from './ConfirmQuestion';
 import { useNavigate, useParams } from 'react-router-dom';
+import { resumeApi } from '@/apis/resume';
+import { useQuery } from '@tanstack/react-query';
+import { useFormContext } from 'react-hook-form';
 
 export const ConfirmArea = () => {
   const { id } = useParams();
+  const { watch } = useFormContext();
   const navigate = useNavigate();
+  const { data } = useQuery({
+    queryKey: ['final'],
+    queryFn: () => resumeApi.GET_RESUME(id)
+  });
   return (
     <Wrapper direction="column" align="flex-start" justify="flex-start">
       <Flex
         css={css`
           padding: 44px 124px 42px 54px;
         `}>
-        <ConfirmTitle title="세아제강 어쩌고" leftDay={6} />
+        <ConfirmTitle title={watch('title')} leftDay={6} />
         <ModifyButton onClick={() => navigate(`/modify/${id}`)}>
           수정하기
         </ModifyButton>
@@ -27,8 +35,10 @@ export const ConfirmArea = () => {
         css={css`
           padding: 0px 124px 42px 54px;
         `}>
-        <ConfirmQuestion title="1.djdjdjd" content="내용내용" />
-        <ConfirmQuestion title="2.djdjdjd" content="내용내용" />
+        <ConfirmQuestion
+          title={'1. ' + data?.question ?? ''}
+          content={data?.content ?? ''}
+        />
       </Flex>
     </Wrapper>
   );
@@ -40,7 +50,7 @@ const Wrapper = styled(Flex)`
   border: 0.5px solid ${({ theme }) => theme.palette.gray2};
   width: 942px;
   height: 700px;
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 const ModifyButton = styled.button`

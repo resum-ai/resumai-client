@@ -32,6 +32,7 @@ export const useModal = () => {
 
   const openModal = ({ content }: { content: JSX.Element }) => {
     document.body.style.overflowY = 'hidden';
+    window.scrollTo(0, 0);
     setIsOpen(true);
     setContent(content);
   };

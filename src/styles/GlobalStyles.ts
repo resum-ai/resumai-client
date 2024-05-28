@@ -15,6 +15,7 @@ export const GlobalStyle = css`
     height: 100%;
     min-height: 100vh;
     display: flex;
+    background-color: #fafafa;
 
     @supports (-webkit-appearance: none) and (stroke-color: transparent) {
       min-height: -webkit-fill-available;

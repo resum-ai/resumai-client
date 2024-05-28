@@ -1,8 +1,12 @@
 import { Space, Text } from '@/components/Wrapper';
+import { useModal } from '@/hooks/useModal';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { MemoModalContent } from './MemoModalContent';
 
 type MemoType = 'sm' | 'lg';
+
+// mode: noneClick, click, modify, delete
 
 interface MemoProps {
   type: MemoType;
@@ -12,8 +16,22 @@ interface MemoProps {
 }
 
 export const Memo = ({ type, title, content, createdAt }: MemoProps) => {
+  const { openModal } = useModal();
+
   return (
-    <MemoWrapper type={type}>
+    <MemoWrapper
+      type={type}
+      onClick={() =>
+        openModal({
+          content: (
+            <MemoModalContent
+              title={title}
+              date={createdAt}
+              content={content}
+            />
+          )
+        })
+      }>
       <Text
         typo="title"
         color="black"
@@ -40,7 +58,7 @@ export const Memo = ({ type, title, content, createdAt }: MemoProps) => {
           max-height: 149px;
           word-wrap: break-word;
         `}>
-        수정 {createdAt.toDateString()}
+        수정: {createdAt.toDateString()}
       </Text>
     </MemoWrapper>
   );
