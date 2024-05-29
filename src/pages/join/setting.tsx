@@ -9,6 +9,7 @@ import { css } from '@emotion/react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+// 대소문자?
 // TODO 로그인 후 수정하기 분기 처리
 export const Setting = () => {
   const { setValue, watch, register } = useForm();
