@@ -15,6 +15,10 @@ export const Setting = () => {
   const { userInfoUpdateMutation } = useAuth();
 
   useEffect(() => {
+    window.location.reload();
+  }, []);
+
+  useEffect(() => {
     userInfoUpdateMutation.mutate(watch() as UserInfoRequest);
   }, [watch('position')]);
 
